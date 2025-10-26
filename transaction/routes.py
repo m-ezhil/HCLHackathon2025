@@ -24,7 +24,8 @@ def transaction_creation(transaction: TransactionCreateSchema, db: Session = Dep
     return TransactionResponseSchema(
         transaction_no=new_transaction.transaction_no,
         transaction_type=new_transaction.transaction_type,
-        amount=new_transaction.amount
+        amount=new_transaction.amount,
+        balance=new_transaction.balance
     )
 
 @router.get("/", response_model=list[TransactionResponseSchema])
@@ -33,5 +34,6 @@ def get_transactions(db: Session = Depends(get_db), customer: Customer = Depends
     return [TransactionResponseSchema(
         transaction_no=tx.transaction_no,
         transaction_type=tx.transaction_type,
-        amount=tx.amount
+        amount=tx.amount,
+        balance=tx.balance
     ) for tx in transactions]

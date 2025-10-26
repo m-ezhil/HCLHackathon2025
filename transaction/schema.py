@@ -8,6 +8,7 @@ class TransactionCreateSchema(BaseModel):
 class TransactionResponseSchema(BaseModel):
     transaction_no: str
     transaction_type: str
+    balance: int
     amount: int
 
 class TransactionDetailSchema(BaseModel):
