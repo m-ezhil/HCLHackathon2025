@@ -16,7 +16,7 @@ class Transaction(Base):
 
     def __init__(self, account_id: int, transaction_type: str, amount: int, balance: int = 0):
         self.account_id = account_id
-        self.transaction_type = transaction_type
+        self.transaction_type = transaction_type.upper()
         self.amount = amount
         self.balance = balance
         self.created_at = datetime.now()

@@ -13,5 +13,5 @@ router = APIRouter(prefix="/account", tags=["Account"])
 @router.post("/create", response_model=AccountResponseSchema)
 def account_creation(account: AccountCreateSchema, customer: Customer = Depends(verify_access_token), db: Session = Depends(get_db)):
     new_account = create_account(db, customer.id, account.account_type, account.initial_deposit)
-    create_transaction(db, new_account.id, "DEPOSIT", account.initial_deposit, new_account.balance)
+    create_transaction(db, new_account.id, "DEPOSIT", account.initial_deposit)
     return new_account
