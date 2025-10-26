@@ -19,7 +19,7 @@ def create_transaction_by_account_id(db: Session, account_id: int, transaction_t
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Insufficient balance for withdrawal.")
         account.balance -= amount
 
-    transaction = Transaction(account_id=account_id, transaction_type=transaction_type, amount=amount, balance=previous_balance)
+    transaction = Transaction(account_id=account_id, transaction_type=transaction_type, amount=amount, balance=previous_balance+amount)
     db.add(transaction)
 
     db.commit()
