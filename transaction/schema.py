@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class TransactionCreateSchema(BaseModel):
-    account_id: int
+    account_no: str
     transaction_type: str 
     amount: int
 

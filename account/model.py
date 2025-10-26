@@ -15,7 +15,7 @@ class Account(Base):
 
     def __init__(self, customer_id: int, account_type: str, balance: int = 0):
         self.customer_id = customer_id
-        self.account_type = account_type
+        self.account_type = account_type.upper()
         self.balance = balance
         self.created_at = datetime.now()
 

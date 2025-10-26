@@ -21,14 +21,16 @@ Open endpoints require no Authentication.
 #### Account Creation (Post): `/account/create`
 ##### Negative Test Scenarios
 - Account type already exists for this customer
+- Initial deposit must be greater than or equal to zero
+- Invalid account type
 - Token has expired
 - Invalid token
 
 #### Amount Deposit (Post): `/trans/create`
 ##### Negative Test Scenarios
 - Amount must be greater than zero
+- Invalid transaction type. Must be 'WITHDRAW' or 'DEPOSIT'.
 - Account not found
-- Customer Inactive or not found
 - Token has expired
 - Invalid token
 

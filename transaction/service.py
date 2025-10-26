@@ -5,9 +5,12 @@ from account.model import Account
 from .model import Transaction
 
 
-def create_transaction(db: Session, account_id: int, transaction_type: str, amount: int) -> Transaction:
-    account = db.query(Account).filter(Account.id == account_id).first()
+def create_transaction_by_account_id(db: Session, account_id: int, transaction_type: str, amount: int) -> Transaction:
+    account = db.query(Account).filter((Account.id == account_id) & (Account.is_active == True)).first()
     previous_balance: float = account.balance if account else 0
+
+    if not account:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found.")
 
     if transaction_type.upper() == "DEPOSIT":
         account.balance += amount
@@ -22,6 +25,12 @@ def create_transaction(db: Session, account_id: int, transaction_type: str, amou
     db.commit()
     db.refresh(transaction)
     return transaction
+
+def create_transaction_by_account_no(db: Session, account_no: str, transaction_type: str, amount: int) -> Transaction:
+    account = db.query(Account).filter((Account.account_no == account_no) & (Account.is_active == True)).first()
+    if not account:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found.")
+    return create_transaction_by_account_id(db, account.id, transaction_type, amount)
 
 def get_transaction_by_account(db: Session, account_id: int):
     return db.query(Transaction).filter(Transaction.account_id == account_id).order_by(desc(Transaction.created_at)).all()
