@@ -34,6 +34,11 @@ Open endpoints require no Authentication.
 - Token has expired
 - Invalid token
 
+#### Get All Amount (Get): `/trans/`
+##### Negative Test Scenarios
+- Token has expired
+- Invalid token
+
 ## Database Design
 ### Customer
 - ID: int - PK
